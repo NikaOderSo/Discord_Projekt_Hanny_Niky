@@ -4,7 +4,7 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 
 public class Bot {
 	
-	private static final String BOT_TOKEN = "MTU1ODA1NDk1NzMwMTc2ODMwMw.G0HQRh.spXympf5TtFiEDrOhhC7TmGxfrKjsm9ISimjmg";
+	private static final String BOT_TOKEN = //Hier Bot token;
 	
 	public static void main(String[] arguments) throws Exception
 	{
