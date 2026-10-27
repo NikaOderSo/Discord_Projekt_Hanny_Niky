@@ -1,23 +1,175 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.components.buttons.Button;
 
-public class MyListener extends ListenerAdapter 
-{
+public class MyListener extends ListenerAdapter {
+
+    private final AbilityRandomizer randomizer = new AbilityRandomizer();
+
+    private final Map<String, List<String>> playerPicks = new HashMap<>();
+    private final Map<String, Integer> playerRounds = new HashMap<>();
+    private final Map<String, List<String>> currentOptions = new HashMap<>();
+
+    private final String[] rounds = {"Q", "W", "E", "R"};
+
     @Override
-    public void onMessageReceived(MessageReceivedEvent event)
-    {
-        if (event.getAuthor().isBot()) return;
-        // We don't want to respond to other bot accounts, including ourself
-        Message message = event.getMessage();
-        String content = message.getContentRaw(); 
-        // getContentRaw() is an atomic getter
-        // getContentDisplay() is a lazy getter which modifies the content for e.g. console view (strip discord formatting)
-        if (content.equals("!ping"))
-        {
-            MessageChannel channel = event.getChannel();
-            channel.sendMessage("Pong!").queue(); // Important to call .queue() on the RestAction returned by sendMessage(...)
+    public void onMessageReceived(MessageReceivedEvent event) {
+        if (event.getAuthor().isBot()) {
+            return;
         }
+
+        String content = event.getMessage().getContentRaw();
+
+        if (content.equalsIgnoreCase("!startgame")) {
+            String userId = event.getAuthor().getId();
+
+            playerPicks.put(userId, new ArrayList<>());
+            playerRounds.put(userId, 0);
+
+            sendRound(event.getChannel(), userId);
+        }
+    }
+
+    private void sendRound(MessageChannel channel, String userId) {
+        int round = playerRounds.get(userId);
+        String abilityKey = rounds[round];
+
+        List<String> options;
+
+        switch (abilityKey) {
+            case "Q":
+                options = randomizer.getRandomQ();
+                break;
+            case "W":
+                options = randomizer.getRandomW();
+                break;
+            case "E":
+                options = randomizer.getRandomE();
+                break;
+            default:
+                options = randomizer.getRandomR();
+                break;
+        }
+
+        currentOptions.put(userId, options);
+
+        List<Button> buttons = new ArrayList<>();
+
+        for (int i = 0; i < options.size(); i++) {
+            buttons.add(
+                Button.primary(
+                    "pick:" + userId + ":" + round + ":" + i,
+                    options.get(i)
+                )
+            );
+        }
+
+        channel.sendMessage(
+        	    "<@" + userId + "> **Runde " + abilityKey
+        	    + "** – Wähle eine Fähigkeit:"
+        	).addComponents(
+        	    net.dv8tion.jda.api.components.actionrow.ActionRow.of(buttons)
+        	).queue();
+    }
+
+    @Override
+    public void onButtonInteraction(ButtonInteractionEvent event) {
+        String[] parts = event.getComponentId().split(":");
+
+        if (parts.length != 4 || !parts[0].equals("pick")) {
+            return;
+        }
+
+        String userId = parts[1];
+
+        // Nur der Spieler, für den die Auswahl angezeigt wird, darf klicken.
+        if (!event.getUser().getId().equals(userId)) {
+            event.reply("Diese Auswahl gehört einem anderen Spieler.")
+                .setEphemeral(true)
+                .queue();
+            return;
+        }
+
+        int round = Integer.parseInt(parts[2]);
+        int optionIndex = Integer.parseInt(parts[3]);
+
+        if (!playerRounds.containsKey(userId)
+                || playerRounds.get(userId) != round) {
+            event.reply("Diese Runde ist bereits vorbei oder nicht mehr aktiv.")
+                .setEphemeral(true)
+                .queue();
+            return;
+        }
+
+        List<String> options = currentOptions.get(userId);
+
+        if (options == null || optionIndex < 0
+                || optionIndex >= options.size()) {
+            event.reply("Diese Auswahl ist nicht mehr verfügbar.")
+                .setEphemeral(true)
+                .queue();
+            return;
+        }
+
+        String chosenAbility = options.get(optionIndex);
+        playerPicks.get(userId).add(chosenAbility);
+
+        // Buttons deaktivieren, damit diese Runde nicht erneut gewählt wird.
+        List<Button> disabledButtons = new ArrayList<>();
+        for (int i = 0; i < options.size(); i++) {
+            disabledButtons.add(
+                Button.primary(
+                    "disabled:" + i,
+                    options.get(i)
+                ).asDisabled()
+            );
+        }
+
+        event.editMessage(
+        	    "Du hast gewählt: **" + chosenAbility + "**"
+        	).setComponents(
+        	    net.dv8tion.jda.api.components.actionrow.ActionRow.of(disabledButtons)
+        	).queue();
+        
+        
+        int nextRound = round + 1;
+        playerRounds.put(userId, nextRound);
+
+        if (nextRound < rounds.length) {
+            sendRound(event.getChannel(), userId);
+        } else {
+            showResults(event.getChannel(), userId);
+        }
+    }
+
+    private void showResults(MessageChannel channel, String userId) {
+        List<String> picks = playerPicks.get(userId);
+
+        StringBuilder result = new StringBuilder();
+        result.append("<@").append(userId)
+              .append("> **Deine zufälligen Fähigkeiten:**\n\n");
+
+        for (int i = 0; i < picks.size(); i++) {
+            result.append("**")
+                  .append(rounds[i])
+                  .append(":** ")
+                  .append(picks.get(i))
+                  .append("\n");
+        }
+
+        channel.sendMessage(result.toString()).queue();
+
+        // Spielerdaten zurücksetzen.
+        playerPicks.remove(userId);
+        playerRounds.remove(userId);
+        currentOptions.remove(userId);
     }
 }
