@@ -1,0 +1,104 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+public class AbilityRandomizer {
+
+    private final List<String> qAbilities = Arrays.asList(
+        "Ezreal Q – Mystischer Schuss",
+        "Lux Q – Fesselnde Lichtkugel",
+        "Ahri Q – Kugel der Täuschung",
+        "Jinx Q – Schrottkanone",
+        "Ashe Q – Konzentrierter Schuss",
+        "Yasuo Q – Stahlsturm",
+        "Morgana Q – Dunkle Bindung",
+        "Thresh Q – Todesurteil",
+        "Blitzcrank Q – Raketengriff",
+        "Nautilus Q – Ankerwurf",
+        "Zed Q – Rasiermessershuriken",
+        "Syndra Q – Dunkle Sphäre",
+        "Caitlyn Q – Piltover-Friedensstifter",
+        "Draven Q – Wirbelnde Axt",
+        "Katarina Q – Klingenschwarm",
+        "Veigar Q – Bösartiger Schlag"
+    );
+
+    private final List<String> wAbilities = Arrays.asList(
+        "Ezreal W – Essenzflux",
+        "Lux W – Prismatische Barriere",
+        "Ahri W – Fuchsfeuer",
+        "Jinx W – Zap!",
+        "Ashe W – Salve",
+        "Yasuo W – Windmauer",
+        "Morgana W – Gequälte Erde",
+        "Thresh W – Dunkler Durchgang",
+        "Blitzcrank W – Übertaktung",
+        "Nautilus W – Titanenzorn",
+        "Zed W – Lebender Schatten",
+        "Syndra W – Willenskraft",
+        "Caitlyn W – Yordle-Schlagfalle",
+        "Draven W – Blutrausch",
+        "Katarina W – Vorbereitung",
+        "Veigar W – Dunkle Materie"
+    );
+
+    private final List<String> eAbilities = Arrays.asList(
+        "Ezreal E – Arkaner Sprung",
+        "Lux E – Schillernde Singularität",
+        "Ahri E – Charme",
+        "Jinx E – Flammenfresser!",
+        "Ashe E – Falkenschuss",
+        "Yasuo E – Wirbelnde Klinge",
+        "Morgana E – Schwarzer Schild",
+        "Thresh E – Peitschender Schlag",
+        "Blitzcrank E – Kraftfaust",
+        "Nautilus E – Gezeitenwelle",
+        "Zed E – Schattenhieb",
+        "Syndra E – Zerstreuen der Schwachen",
+        "Caitlyn E – 90-Kaliber-Netz",
+        "Draven E – Wegschleudern",
+        "Katarina E – Blitzschritt",
+        "Veigar E – Ereignishorizont"
+    );
+
+    private final List<String> rAbilities = Arrays.asList(
+        "Ezreal R – Gnadenloser Energieschub",
+        "Lux R – Finale Funkeln",
+        "Ahri R – Geisterhast",
+        "Jinx R – Super-Mega-Todesrakete!",
+        "Ashe R – Verzauberter Kristallpfeil",
+        "Yasuo R – Letzter Atemzug",
+        "Morgana R – Seelenfesseln",
+        "Thresh R – Die Box",
+        "Blitzcrank R – Statisches Feld",
+        "Nautilus R – Tiefenladung",
+        "Zed R – Zeichen des Todes",
+        "Syndra R – Entfesselte Macht",
+        "Caitlyn R – Ass im Ärmel",
+        "Draven R – Mächtiger Tod",
+        "Katarina R – Todeslotus",
+        "Veigar R – Urknall"
+    );
+
+    private List<String> getRandomAbilities(List<String> abilities) {
+        List<String> shuffled = new ArrayList<>(abilities);
+        Collections.shuffle(shuffled);
+        return new ArrayList<>(shuffled.subList(0, 4));
+    }
+
+    public List<String> getRandomQ() {
+        return getRandomAbilities(qAbilities);
+    }
+
+    public List<String> getRandomW() {
+        return getRandomAbilities(wAbilities);
+    }
+
+    public List<String> getRandomE() {
+        return getRandomAbilities(eAbilities);
+    }
+
+    public List<String> getRandomR() {
+        return getRandomAbilities(rAbilities);
+    }
