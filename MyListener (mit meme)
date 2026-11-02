@@ -22,8 +22,6 @@ public class MyListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-    	
-    	
     	 if (event.getAuthor().isBot()) return;
          // We don't want to respond to other bot accounts, including ourself
          Message message = event.getMessage();
@@ -33,7 +31,7 @@ public class MyListener extends ListenerAdapter {
          if (content1.equals("!joke"))
          {
              MessageChannel channel = event.getChannel();
-             channel.sendMessage("Why cant Yasuo lock himself out of his house? \n Because heHasAKey (Hasagi)").queue(); // Important to call .queue() on the RestAction returned by sendMessage(...)
+             channel.sendMessage("Why cant Yasuo lock himself out of his house? \nBecause heHasAKey (Hasagi)").queue(); // Important to call .queue() on the RestAction returned by sendMessage(...)
          }
     	
     	
