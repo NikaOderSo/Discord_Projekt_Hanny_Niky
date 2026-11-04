@@ -23,3 +23,9 @@ Der Code zu dieser idee müsste also so verlaufen:
 Probleme welche aufkommen könnten:
 * backups? aka speichern von Antworten
 * randomizer der abilities... gah
+
+
+4.11 
+Also das problem wieso die Antwort von dem Bot alte Antworten oder immer mehr werden pro Projekt neu starten in eclipse
+liegt halt daran das die instanz nicht gestoppt wird. deswegen ist pro neustart immer die alten plus die neue ausgegeben.
+=> Die "Lösung": man muss immer dieses kleine rote vier eck in der Konsole drücken.
