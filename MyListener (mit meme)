@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,8 @@ import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.requests.RestAction;
+import net.dv8tion.jda.api.utils.FileUpload;
 import net.dv8tion.jda.api.components.buttons.Button;
 
 public class MyListener extends ListenerAdapter {
@@ -21,25 +24,26 @@ public class MyListener extends ListenerAdapter {
     private final String[] rounds = {"Q", "W", "E", "R"};
 
     @Override
-    public void onMessageReceived(MessageReceivedEvent event) {
-    	 if (event.getAuthor().isBot()) return;
-         // We don't want to respond to other bot accounts, including ourself
-         Message message = event.getMessage();
-         String content1 = message.getContentRaw(); 
-         // getContentRaw() is an atomic getter
-         // getContentDisplay() is a lazy getter which modifies the content for e.g. console view (strip discord formatting)
-         if (content1.equals("!joke"))
-         {
-             MessageChannel channel = event.getChannel();
-             channel.sendMessage("Why cant Yasuo lock himself out of his house? \nBecause heHasAKey (Hasagi)").queue(); // Important to call .queue() on the RestAction returned by sendMessage(...)
-         }
-    	
-    	
-        if (event.getAuthor().isBot()) {
-            return;
+    public void onMessageReceived(MessageReceivedEvent event)
+    {
+        if (event.getAuthor().isBot()) return;
+        // We don't want to respond to other bot accounts, including ourself
+        Message message = event.getMessage();
+        String content = message.getContentRaw(); 
+        // getContentRaw() is an atomic getter
+        // getContentDisplay() is a lazy getter which modifies the content for e.g. console view (strip discord formatting)
+        if (content.equals("!joke"))
+        {
+            MessageChannel channel = event.getChannel();
+            //channel.sendMessage("Why cant Yasuo lock himself out of his house? Because heHasAKey XD (Hasagi)").queue(); // Important to call .queue() on the RestAction returned by sendMessage(...)
+        
+            FileUpload file = FileUpload.fromData(new File("H:\\LolMeme2.jpg"), "image.png"); 
+            channel.sendFiles(file).queue();
         }
-
-        String content = event.getMessage().getContentRaw();
+    
+    	
+    	
+        
 
         if (content.equalsIgnoreCase("!startgame")) {
             String userId = event.getAuthor().getId();
