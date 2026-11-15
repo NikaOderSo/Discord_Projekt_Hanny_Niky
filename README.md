@@ -45,5 +45,6 @@ Quellen:
 - https://www.geeksforgeeks.org/java/split-string-java-examples/
 - https://www.youtube.com/watch?v=3rYELOsq7ec
 - https://www.youtube.com/watch?v=LlcWbunCMCc
-- KI:
+- KI: (gemini)
 Wir haben der Ki diese Abilities machen lassen weil uhh das dauert stunden die Abilities raus zu suchen und zu kopieren.
+auch verbesserungsvorschläge und hilfe
