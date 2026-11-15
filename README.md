@@ -33,5 +33,7 @@ liegt halt daran das die instanz nicht gestoppt wird. deswegen ist pro neustart 
 Quellen:
 - https://jda.wiki/introduction/jda/
 - -> von denen auch im discord server gestöbert
+- https://www.w3schools.com/java/java_map.asp
+- https://www.w3schools.com/java/java_map.asp
 - KI:
 Wir haben der Ki diese Abilities machen lassen weil uhh das dauert stunden die Abilities raus zu suchen und zu kopieren.
