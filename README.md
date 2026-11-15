@@ -1,7 +1,6 @@
 INFO für unseren Lehrer:
-* Zur abgabe gehört AbilityRandomizer, Bot und My Listener
-* NICHT dazu gehört neu, MyListender (mit meme)
-* 
+* Zur abgabe gehört AbilityRandomizer, Bot und My Listener. Auch (ist denke kein großer unterschied) MyListender (mit meme) anschauen
+* NICHT dazu gehört neu, Meme (mit Bilder wenn es...) 
 
 eigentlich nur ideen
 Erstellt von Hanna am 23.10.26
