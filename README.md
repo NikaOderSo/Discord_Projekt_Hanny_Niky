@@ -29,3 +29,6 @@ Probleme welche aufkommen könnten:
 Also das problem wieso die Antwort von dem Bot alte Antworten oder immer mehr werden pro Projekt neu starten in eclipse
 liegt halt daran das die instanz nicht gestoppt wird. deswegen ist pro neustart immer die alten plus die neue ausgegeben.
 => Die "Lösung": man muss immer dieses kleine rote vier eck in der Konsole drücken.
+
+KI:
+Wir haben der Ki diese Abilities machen lassen weil uhh das dauert stunden die Abilities raus zu suchen und zu kopieren.
