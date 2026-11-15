@@ -39,5 +39,11 @@ Quellen:
 - -> von denen auch im discord server gestöbert
 - https://www.w3schools.com/java/java_map.asp
 - https://www.w3schools.com/java/java_map.asp
+- https://docs.oracle.com/en/java/
+- https://docs.oracle.com/en/java/
+- https://docs.jda.wiki/net/dv8tion/jda/api/events/interaction/component/ButtonInteractionEvent.html
+- https://www.geeksforgeeks.org/java/split-string-java-examples/
+- https://www.youtube.com/watch?v=3rYELOsq7ec
+- https://www.youtube.com/watch?v=LlcWbunCMCc
 - KI:
 Wir haben der Ki diese Abilities machen lassen weil uhh das dauert stunden die Abilities raus zu suchen und zu kopieren.
