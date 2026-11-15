@@ -1,5 +1,7 @@
 INFO für unseren Lehrer:
 * Zur abgabe gehört AbilityRandomizer, Bot und My Listener
+* NICHT dazu gehört neu, MyListender (mit meme)
+* 
 
 eigentlich nur ideen
 Erstellt von Hanna am 23.10.26
