@@ -1,3 +1,6 @@
+INFO für unseren Lehrer:
+* Zur abgabe gehört AbilityRandomizer, Bot und My Listener
+
 eigentlich nur ideen
 Erstellt von Hanna am 23.10.26
 
